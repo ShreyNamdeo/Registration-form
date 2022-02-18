@@ -1,0 +1,131 @@
+/*
+=========================================
+=========================================
+
+=========================================
+========================================= */
+/*
+*
+* ======================================================================
+* GENERAL
+* ======================================================================
+*
+*/
+.preview-images-zone {
+    width: 100%;
+    border: 1px solid #ddd;
+    min-height: 180px;
+    /* display: flex; */
+    padding: 5px 5px 0px 5px;
+    position: relative;
+    overflow:auto;
+}
+.preview-images-zone > .preview-image:first-child {
+    height: 185px;
+    width: 185px;
+    position: relative;
+    margin-right: 5px;
+}
+.preview-images-zone > .preview-image {
+    height: 90px;
+    width: 90px;
+    position: relative;
+    margin-right: 5px;
+    float: left;
+    margin-bottom: 5px;
+}
+.preview-images-zone > .preview-image > .image-zone {
+    width: 100%;
+    height: 100%;
+}
+.preview-images-zone > .preview-image > .image-zone > img {
+    width: 100%;
+    height: 100%;
+}
+.preview-images-zone > .preview-image > .tools-edit-image {
+    position: absolute;
+    z-index: 100;
+    color: #fff;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 10px;
+    display: none;
+}
+.preview-images-zone > .preview-image > .image-cancel {
+    font-size: 18px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-weight: bold;
+    margin-right: 10px;
+    cursor: pointer;
+    display: none;
+    z-index: 100;
+}
+.preview-image:hover > .image-zone {
+    cursor: move;
+    opacity: .5;
+}
+.preview-image:hover > .tools-edit-image,
+.preview-image:hover > .image-cancel {
+    display: block;
+}
+.ui-sortable-helper {
+    width: 90px !important;
+    height: 90px !important;
+}
+
+.container {
+    /*padding-top: 50px;*/
+}
+.add-media{
+    /*color : #808080;
+    background: transparent;
+    border : 3px solid #808080;
+    border-radius: 30px;
+    padding: 4px 12px;*/
+}
+.add-media:hover{
+    background: #808080;
+    color : #FFFFFF;
+    transition-duration: 0.5s;
+}
+.video-btn-1{
+    color:#808080;
+    border: 3px solid #808080;
+    border-right: 0;
+    border-radius: 21px 0 0 21px;
+    padding: 4px 12px;
+}
+.video-btn-1:hover{
+    background:#808080;
+    border: 3px solid #808080;
+    color:#FFFFFF;
+    transition-duration: 0.5s;
+}
+.video-btn-2{
+    border: 3px solid #808080;
+    border-left: 0;
+    border-radius: 0 21px 21px 0;
+    padding: 4px 12px;
+}
+.video-btn-2:hover{
+    background:#808080;
+    border: 3px solid #808080;
+    color:#FFFFFF;
+    transition-duration: 1s;
+}
+.video-btn-2:focus{
+    background:#808080;
+    border: 3px solid #808080;
+    color:#FFFFFF;
+    transition-duration: 1s;
+}
+.video-text{
+    border: 3px solid #808080;
+    border-left: 0;
+    border-right: 0;
+    width:0%;
+    transition: width 1s;
+}
