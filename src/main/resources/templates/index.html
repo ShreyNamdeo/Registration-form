@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.springframework.org/schema/data/jaxb">
+<html lang="en" xmlns:th="http://www.springframework.org/schema/data/jaxb" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -16,8 +16,6 @@
     <!-- owl carousel-->
     <link rel="stylesheet" th:href="@{/vendor/owl.carousel/assets/owl.carousel.css}">
     <link rel="stylesheet" th:href="@{/vendor/owl.carousel/assets/owl.theme.default.css}">
-    <!-- theme stylesheet-->
-    <link rel="stylesheet" th:href="@{/css/style.default.css}" id="theme-stylesheet">
     <!-- Leaflet CSS - For the map-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.4.0/leaflet.css">
     <!-- Custom stylesheet - for your changes-->
@@ -34,69 +32,127 @@
     <!-- Tweaks for older IEs--><!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+    <style>
+        .editor-input{
+            width : 100%;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <h2>Add report data</h2>
+
+<nav class="navbar navbar-expand-sm navbar-light bg-info sticky-top">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+        <a class="navbar-brand" href="#" style="color:#fff;font-weight:bold;">SR LEGAL</a>
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item active">
+                <a style="color:#fff;" class="nav-link" href="#">Report Customizer <span class="sr-only">(current)</span></a>
+            </li>
+            <!--<li class="nav-item active">
+                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled" href="#">Disabled</a>
+            </li>-->
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <button class="btn btn-sm btn-success my-2 my-sm-0" type="submit" id="doc-btn" style="margin-right:10px;">Download Doc <i class="fa fa-file-text-o" aria-hidden="true"></i></button>
+            <button class="btn btn-sm btn-success my-2 my-sm-0" type="submit" id="pdf-btn">Download Pdf <i class="fa fa-file-pdf-o" aria-hidden="true"></i></button>
+        </form>
+    </div>
+</nav>
+
+<div class="container">
+        <label>Add below details carefully to create report.</label>
         <div id="input-div">
             <form id="input-form" method="post">
                 <div class="row">
-                    <div class="col-2 form-group">
-                        <label>Serial No</label>
-                        <input class="form-control" type="text" id="sno">
+                    <div class="col-1 form-group">
+                        <input placeholder="S. No" class="form-control" type="text" id="sno">
                     </div>
-                    <div class="col-2 form-group">
-                        <label>Issue</label>
-                        <textarea class="form-control" id="issue"></textarea>
+                    <div class="col-7 form-group">
+                        <input placeholder="Section Heading" class="form-control" type="text" id="heading">
                     </div>
-                    <div class="col-2 form-group">
-                        <label>Risk</label>
-                        <textarea class="form-control" id="risk"></textarea>
+                    <div class="col-4 form-group">
+                        <!--<input placeholder="CP/CS/Indemnity/No action" class="form-control" type="text" id="cpcs">-->
+                        <label><small><strong>CP/CS/Indemnity/No action</strong></small></label>
+                        <br>
+                        <input  type="checkbox" value="CP" name="cp-cs"> CP
+                        <input  type="checkbox" value="CS" name="cp-cs"> CS
+                        <input  type="checkbox" value="Indemnity" name="cp-cs"> Indemnity
+                        <input  type="checkbox" value="No Action" name="cp-cs"> No Action
                     </div>
-                    <div class="col-2 form-group">
-                        <label>Action</label>
-                        <textarea class="form-control" id="action"></textarea>
+                </div>
+                <div class="row">
+                    <div class="col-3 form-group">
+                        <textarea placeholder="Issue" class="form-control" id="issue"></textarea>
                     </div>
-                    <div class="col-2 form-group">
-                        <label>CP/CS</label>
-                        <input class="form-control" type="text" id="cpcs">
+                    <div class="col-3 form-group">
+                        <textarea placeholder="Risk" class="form-control" id="risk"></textarea>
                     </div>
-                    <div class="col-2 form-group">
-                        <label>Significance</label>
+                    <div class="col-3 form-group">
+                        <textarea placeholder="Action" class="form-control" id="action"></textarea>
+                    </div>
+                    <div class="col-3 form-group">
+                        <label><small><strong>Significance</strong></small></label>
                         <br>
                         <input  type="radio" value="High" name="significance" checked> High
-                        <br>
                         <input  type="radio" value="Medium" name="significance"> Medium
-                        <br>
                         <input  type="radio" value="Low" name="significance"> Low
                     </div>
                 </div>
-                <button class="btn btn-primary" type="submit">Add</button>
+                <button class="btn btn-primary" type="submit">Add section to report</button>
             </form>
         </div>
         <div class="text-center">
             <h1>Report Data</h1>
         </div>
-        <div id="display-div" class="html-content" style="width:100%;">
-            <table class="table " id="display-table">
-                <thead style="background:blue;">
-                    <tr>
-                        <th scope="col">S.No</th>
-                        <th scope="col">Issue</th>
-                        <th scope="col">Risk</th>
-                        <th scope="col">Action</th>
-                        <th scope="col">CP/CS</th>
-                        <th scope="col">Significance</th>
+        <div id="display-editor-div" style="width:100%;">
+            <table id="display-editor-table" style="width:100%;text-align:center;border: 1px solid black;">
+                <thead style="background:blue;border-top: 1px solid black;border-right: 1px solid black;border-left: 1px solid black;">
+                    <tr style="border-bottom: 1px solid black;padding: 0;">
+                        <th style="border-right: 1px solid black;border-bottom: 1px solid black;padding: 0;" scope="col">S.No</th>
+                        <th style="border-right: 1px solid black;border-bottom: 1px solid black;padding: 0;" scope="col">Issue</th>
+                        <th style="border-right: 1px solid black;border-bottom: 1px solid black;padding: 0;" scope="col">Risk</th>
+                        <th style="border-right: 1px solid black;border-bottom: 1px solid black;padding: 0;" scope="col">Action</th>
+                        <th style="border-right: 1px solid black;border-bottom: 1px solid black;padding: 0;" scope="col">CP/CS</th>
+                        <th style="border-right: 1px solid black;border-bottom: 1px solid black;padding: 0;" scope="col">Significance</th>
+                        <th style="border-right: 1px solid black;border-bottom: 1px solid black;padding: 0;" scope="col">Action</th>
                     </tr>
                 </thead>
-                <tbody id="display-table-data">
+                <tbody id="display-editor-table-data" style="border-right: 1px solid black;border-left: 1px solid black;border-bottom: 1px solid black;">
 
                 </tbody>
             </table>
         </div>
+        <br>
+        <div id="display-div" class="html-content" style="width:100%;">
+            <table id="display-table" style="width:100%; border:1px solid black;border-spacing: 0;border-collapse: collapse;">
+                <thead style="background:blue;text-align:center;border-top: 1px solid black;border-right: 1px solid black;border-left: 1px solid black;">
+                    <tr style="border-bottom: 1px solid black;background:blue;padding: 0;">
+                        <th style="border-bottom: 1px solid black;border-right: 1px solid black;padding: 0;" scope="col">S.No</th>
+                        <th style="border-bottom: 1px solid black;border-right: 1px solid black;padding: 0;" scope="col">Issue</th>
+                        <th style="border-bottom: 1px solid black;border-right: 1px solid black;padding: 0;" scope="col">Risk</th>
+                        <th style="border-bottom: 1px solid black;border-right: 1px solid black;padding: 0;" scope="col">Action</th>
+                        <th style="border-bottom: 1px solid black;border-right: 1px solid black;padding: 0;" scope="col">CP/CS</th>
+                        <th style="border-bottom: 1px solid black;padding: 0;" scope="col">Significance</th>
+                    </tr>
+                </thead>
+                <tbody id="display-table-data" style="border-right: 1px solid black;border-left: 1px solid black;border-bottom: 1px solid black;">
+                </tbody>
+            </table>
+        </div>
         <div class="text-center">
-            <button class="btn btn-primary" type="button" id="pdf-btn">Save as pdf </button>
-            <button class="btn btn-primary" type="button" id="doc-btn">Save as Doc </button>
+            <br>
+            <br>
+            <small>All rights reserved.</small>
+            <!--<button class="btn btn-primary" type="button" id="pdf-btn">Save as pdf </button>-->
+            <!--<button class="btn btn-primary" type="button" id="doc-btn">Save as Doc </button>-->
         </div>
     </div>
     <script th:src="@{/vendor/jquery/jquery.min.js}"></script>
@@ -106,6 +162,7 @@
     <script th:src="@{/js/FileSaver.js}"></script>
     <script th:src="@{/js/jquery.wordexport.js}"></script>
     <script>
+        $('#display-div').hide();
         var doc = new jsPDF();
         var specialElementHandlers = {
             '#editor': function (element, renderer) {
@@ -114,6 +171,7 @@
         };
 
         function CreatePDFfromHTML() {
+            $('#display-div').show();
             var HTML_Width = $(".html-content").width();
             var HTML_Height = $(".html-content").height();
             var top_left_margin = 15;
@@ -135,6 +193,7 @@
                 pdf.save("Sample_report.pdf");
                 //$(".html-content").hide();
             });
+            $('#display-div').hide();
         }
 
         $('#pdf-btn').click(function () {
@@ -148,19 +207,48 @@
 
         $('#input-form').submit(function(e){
             var significanceImg = "./img/high.svg";
-            if($('input[name="significance"]:checked').val() === 'High'){
+            var significanceVal =  $('input[name="significance"]:checked').val();
+            if(significanceVal === 'High'){
                 significanceImg = "./img/high.png";
             }
-            if($('input[name="significance"]:checked').val() === 'Medium'){
+            if(significanceVal === 'Medium'){
                 significanceImg = "./img/medium.png";
             }
-            if($('input[name="significance"]:checked').val() === 'Low'){
+            if(significanceVal === 'Low'){
                 significanceImg = "./img/low.png";
             }
-            var dataInTable = "<tr><td>"+$('#sno').val()+"</td><td>"+$('#issue').val()+"</td><td>"+$('#risk').val()+"</td><td>"+$('#action').val()+"</td><td>"+$('#cpcs').val()+"</td><td><img src='"+significanceImg+"' height=40 width=40/></td></tr>"
-            $('#display-table-data').append(dataInTable);
+            var base_elem_id = new Date().getTime() +"-"+$('#sno').val();
+
+            //This is for display div , which is being used for creating doc and Pdf
+            var tableHeader = "<tr id='"+base_elem_id+"-row1' style='border-bottom:1px solid black;'><td style='border-right:1px solid black;text-align:center;border-bottom:1px solid black;' rowspan='2'>"+$('#sno').val()+"</td><td style='border-bottom:1px solid black; border-top:1px solid black;' colspan='5'>"+$('#heading').val()+"</td></tr>";
+            var dataInTable = "<td style='border-right:1px solid black;'><pre>"+$('#issue').val()+"</pre></td><td style='border-right:1px solid black;'><pre>"+$('#risk').val()+"</pre></td><td style='border-right:1px solid black;'><pre>"+$('#action').val()+"</pre></td><td style='border-right:1px solid black;'>"+$('#cpcs').val()+"</td><td style='text-align:center;'><img src='"+significanceImg+"' height=40 width=40/></td>"
+            $('#display-table-data').append(tableHeader);
+            $('#display-table-data').append("<tr style='border-bottom:1px solid black;' id='"+base_elem_id+"-row2'>"+dataInTable+"</tr>");
+
+            //This is on page display div and editor
+            dataInTable = "<td style='border-right:1px solid black; border-bottom:1px solid black;'><pre>"+$('#issue').val()+"</pre><input type='text' class='editor-input' value='"+$('#issue').val()+"'/></td>"+
+                          "<td style='border-right:1px solid black; border-bottom:1px solid black;'><pre>"+$('#risk').val()+"</pre><textarea type='text' class='editor-input'>"+$('#risk').val()+"</textarea></td>"+
+                          "<td style='border-right:1px solid black; border-bottom:1px solid black;'><pre>"+$('#action').val()+"</pre><textarea type='text' class='editor-input'>"+$('#action').val()+"</textarea></td>"+
+                          "<td style='border-right:1px solid black; border-bottom:1px solid black;'>"+$('#cpcs').val()+"</td>"+
+                          "<td style='text-align:center; border-bottom:1px solid black;'><img src='"+significanceImg+"' height=40 width=40/>"+createSignificanceCheckedInput(base_elem_id,significanceVal)+"</td>"
+            dataInTable = dataInTable + "<td style='border-left:1px solid #000;border-top:1px solid #000;'><button id='"+base_elem_id+"-edit' style='margin-right:10px;' class='btn btn-sm btn-outline-success'><i class='fa fa-pencil-square-o' aria-hidden='true'></i> Edit</button><button id='"+base_elem_id+"-delete' class='btn btn-sm btn-outline-danger'><i class='fa fa-trash-o' aria-hidden='true'></i> Delete</td>"
+            $('#display-editor-table-data').append(tableHeader);
+            $('#display-editor-table-data').append("<tr style='border-bottom:1px solid black;' id='"+base_elem_id+"-row2'>"+dataInTable+"</tr>");
             e.preventDefault();
+            $('#sno').val("");$('#issue').val("");$('#risk').val("");$('#action').val("");$('#cpcs').val("");
         });
+
+        function createSignificanceCheckedInput(id, significanceValue){
+            if(significanceValue === 'High'){
+                return "<input type='radio' name='"+"id+' checked> High <input type='radio' name='"+id+"'> Medium <input type='radio' name='"+id+"'> Low "
+            }
+            if(significanceValue === 'Medium'){
+                return "<input type='radio' name='"+id+"'> High <input type='radio' name='"+id+"' checked> Medium <input type='radio' name='"+id+"'> Low "
+            }
+            if(significanceValue === 'Low'){
+                return "<input type='radio' name='"+id+"'> High <input type='radio' name='"+id+"'> Medium <input type='radio' name='"+id+"' checked> Low "
+            }
+        }
     </script>
 </body>
 </html>
