@@ -34,7 +34,6 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
     <style>
         .editor-input{
-            width : 100%;
         }
     </style>
 </head>
@@ -82,10 +81,10 @@
                         <!--<input placeholder="CP/CS/Indemnity/No action" class="form-control" type="text" id="cpcs">-->
                         <label><small><strong>CP/CS/Indemnity/No action</strong></small></label>
                         <br>
-                        <input  type="checkbox" value="CP" name="cp-cs"> CP
-                        <input  type="checkbox" value="CS" name="cp-cs"> CS
-                        <input  type="checkbox" value="Indemnity" name="cp-cs"> Indemnity
-                        <input  type="checkbox" value="No Action" name="cp-cs"> No Action
+                        <input class="cp-cs" type="checkbox" value="CP" name="cp-cs"> CP
+                        <input class="cp-cs" type="checkbox" value="CS" name="cp-cs"> CS
+                        <input class="cp-cs" type="checkbox" value="Indemnity" name="cp-cs"> Indemnity
+                        <input class="cp-cs" type="checkbox" value="No Action" name="cp-cs"> No Action
                     </div>
                 </div>
                 <div class="row">
@@ -113,8 +112,8 @@
             <h1>Report Data</h1>
         </div>
         <div id="display-editor-div" style="width:100%;">
-            <table id="display-editor-table" style="width:100%;text-align:center;border: 1px solid black;">
-                <thead style="background:blue;border-top: 1px solid black;border-right: 1px solid black;border-left: 1px solid black;">
+            <table id="display-editor-table" style="width:100%;border: 1px solid black;">
+                <thead style="background:blue;border-top: 1px solid black;text-align:center;border-right: 1px solid black;border-left: 1px solid black;">
                     <tr style="border-bottom: 1px solid black;padding: 0;">
                         <th style="border-right: 1px solid black;border-bottom: 1px solid black;padding: 0;" scope="col">S.No</th>
                         <th style="border-right: 1px solid black;border-bottom: 1px solid black;padding: 0;" scope="col">Issue</th>
@@ -162,7 +161,7 @@
     <script th:src="@{/js/FileSaver.js}"></script>
     <script th:src="@{/js/jquery.wordexport.js}"></script>
     <script>
-        $('#display-div').hide();
+        //$('#display-div').hide();
         var doc = new jsPDF();
         var specialElementHandlers = {
             '#editor': function (element, renderer) {
@@ -206,6 +205,27 @@
         });
 
         $('#input-form').submit(function(e){
+
+            var base_elem_id = new Date().getTime() +"-"+$('#sno').val();
+            var cpCsTable = "<table style='1px solid black;border-spacing:0;margin:10px;border-collapse: collapse;padding:0;'>";
+            var cpCsCheckBoxes = "";
+
+            $('input:checkbox.cp-cs').each(function () {
+                //alert($(this)+" is checked "+this.checked+" value is :"+$(this).val())
+                var tickMark = "";
+                var isChecked = "";
+                if(this.checked) {
+                    tickMark = "&#10003;";
+                    isChecked = "checked";
+                }
+                cpCsTable = cpCsTable + "<tr style='border:1px solid black;line-height:1'><td style='border:1px solid black;'>"+ tickMark + "</td><td style='border:1px solid black;'>" + $(this).val() + "</td></tr>"
+                cpCsCheckBoxes = cpCsCheckBoxes + "<input class='editor-input "+base_elem_id+"' type='checkbox' "+isChecked+">"+$(this).val();
+            });
+
+            cpCsTable = cpCsTable + "</table>"
+
+            //alert(cpCsCheckBoxes);
+
             var significanceImg = "./img/high.svg";
             var significanceVal =  $('input[name="significance"]:checked').val();
             if(significanceVal === 'High'){
@@ -217,38 +237,47 @@
             if(significanceVal === 'Low'){
                 significanceImg = "./img/low.png";
             }
-            var base_elem_id = new Date().getTime() +"-"+$('#sno').val();
 
             //This is for display div , which is being used for creating doc and Pdf
-            var tableHeader = "<tr id='"+base_elem_id+"-row1' style='border-bottom:1px solid black;'><td style='border-right:1px solid black;text-align:center;border-bottom:1px solid black;' rowspan='2'>"+$('#sno').val()+"</td><td style='border-bottom:1px solid black; border-top:1px solid black;' colspan='5'>"+$('#heading').val()+"</td></tr>";
-            var dataInTable = "<td style='border-right:1px solid black;'><pre>"+$('#issue').val()+"</pre></td><td style='border-right:1px solid black;'><pre>"+$('#risk').val()+"</pre></td><td style='border-right:1px solid black;'><pre>"+$('#action').val()+"</pre></td><td style='border-right:1px solid black;'>"+$('#cpcs').val()+"</td><td style='text-align:center;'><img src='"+significanceImg+"' height=40 width=40/></td>"
+            var tableHeader = "<tr id='"+base_elem_id+"-row1' style='border-bottom:1px solid black;'>"+
+                              "<td style='border-right:1px solid black;text-align:center;border-bottom:1px solid black;vertical-align: top;' rowspan='2'>"+$('#sno').val()+"</td>"+
+                              "<td style='border-bottom:1px solid black; border-top:1px solid black;' colspan='5'>"+$('#heading').val()+"</td></tr>";
+            var dataInTable = "<td style='border-right:1px solid black;vertical-align: top;'><pre>"+$('#issue').val()+"</pre></td>"+
+                              "<td style='border-right:1px solid black;vertical-align: top;'><pre>"+$('#risk').val()+"</pre></td>"+
+                              "<td style='border-right:1px solid black;vertical-align: top;'><pre>"+$('#action').val()+"</pre></td>"+
+                              "<td style='border-right:1px solid black;vertical-align: top;padding-top:10px;padding-bottom:10px;'>"+cpCsTable+"</td>"+
+                              "<td style='text-align:center;vertical-align: top;'><img src='"+significanceImg+"' height=40 width=40/></td>"
             $('#display-table-data').append(tableHeader);
             $('#display-table-data').append("<tr style='border-bottom:1px solid black;' id='"+base_elem_id+"-row2'>"+dataInTable+"</tr>");
 
             //This is on page display div and editor
-            dataInTable = "<td style='border-right:1px solid black; border-bottom:1px solid black;'><pre>"+$('#issue').val()+"</pre><input type='text' class='editor-input' value='"+$('#issue').val()+"'/></td>"+
-                          "<td style='border-right:1px solid black; border-bottom:1px solid black;'><pre>"+$('#risk').val()+"</pre><textarea type='text' class='editor-input'>"+$('#risk').val()+"</textarea></td>"+
-                          "<td style='border-right:1px solid black; border-bottom:1px solid black;'><pre>"+$('#action').val()+"</pre><textarea type='text' class='editor-input'>"+$('#action').val()+"</textarea></td>"+
-                          "<td style='border-right:1px solid black; border-bottom:1px solid black;'>"+$('#cpcs').val()+"</td>"+
+            tableHeader = "<tr id='"+base_elem_id+"-row1' style='border-bottom:1px solid black;'>"+
+                          "<td style='border-right:1px solid black;text-align:center;border-bottom:1px solid black;vertical-align: top;' rowspan='2'>"+$('#sno').val()+"<input id='"+base_elem_id+"-sno' type='text' class='editor-input' value='"+$('#sno').val()+"'/></td>"+
+                          "<td style='border-bottom:1px solid black; border-top:1px solid black;' colspan='5'>"+$('#heading').val()+" <input type='text' id='"+base_elem_id+"-heading' class='editor-input' value='"+$('#heading').val()+"'/> </td></tr>";
+            dataInTable = "<td style='border-right:1px solid black; border-bottom:1px solid black;vertical-align: top;'><pre>"+$('#issue').val()+"</pre><input type='text' class='editor-input' value='"+$('#issue').val()+"'/></td>"+
+                          "<td style='border-right:1px solid black; border-bottom:1px solid black;vertical-align: top;'><pre>"+$('#risk').val()+"</pre><textarea type='text' class='editor-input'>"+$('#risk').val()+"</textarea></td>"+
+                          "<td style='border-right:1px solid black; border-bottom:1px solid black;vertical-align: top;'><pre>"+$('#action').val()+"</pre><textarea type='text' class='editor-input'>"+$('#action').val()+"</textarea></td>"+
+                          "<td style='border-right:1px solid black; border-bottom:1px solid black;vertical-align: top;'>"+cpCsTable+cpCsCheckBoxes+"</td>"+
                           "<td style='text-align:center; border-bottom:1px solid black;'><img src='"+significanceImg+"' height=40 width=40/>"+createSignificanceCheckedInput(base_elem_id,significanceVal)+"</td>"
             dataInTable = dataInTable + "<td style='border-left:1px solid #000;border-top:1px solid #000;'><button id='"+base_elem_id+"-edit' style='margin-right:10px;' class='btn btn-sm btn-outline-success'><i class='fa fa-pencil-square-o' aria-hidden='true'></i> Edit</button><button id='"+base_elem_id+"-delete' class='btn btn-sm btn-outline-danger'><i class='fa fa-trash-o' aria-hidden='true'></i> Delete</td>"
             $('#display-editor-table-data').append(tableHeader);
             $('#display-editor-table-data').append("<tr style='border-bottom:1px solid black;' id='"+base_elem_id+"-row2'>"+dataInTable+"</tr>");
             e.preventDefault();
-            $('#sno').val("");$('#issue').val("");$('#risk').val("");$('#action').val("");$('#cpcs').val("");
+            $('#sno').val("");$('#issue').val("");$('#risk').val("");$('#action').val("");$('#cpcs').val("");$('#heading').val("");
         });
 
         function createSignificanceCheckedInput(id, significanceValue){
             if(significanceValue === 'High'){
-                return "<input type='radio' name='"+"id+' checked> High <input type='radio' name='"+id+"'> Medium <input type='radio' name='"+id+"'> Low "
+                return "<input class='editor-input' type='radio' name='"+"id+' checked> High <input class='editor-input' type='radio' name='"+id+"'> Medium <input class='editor-input' type='radio' name='"+id+"'> Low "
             }
             if(significanceValue === 'Medium'){
-                return "<input type='radio' name='"+id+"'> High <input type='radio' name='"+id+"' checked> Medium <input type='radio' name='"+id+"'> Low "
+                return "<input class='editor-input' type='radio' name='"+id+"'> High <input class='editor-input' type='radio' name='"+id+"' checked> Medium <input class='editor-input' type='radio' name='"+id+"'> Low "
             }
             if(significanceValue === 'Low'){
-                return "<input type='radio' name='"+id+"'> High <input type='radio' name='"+id+"'> Medium <input type='radio' name='"+id+"' checked> Low "
+                return "<input class='editor-input' type='radio' name='"+id+"'> High <input class='editor-input' type='radio' name='"+id+"'> Medium <input class='editor-input' type='radio' name='"+id+"' checked> Low "
             }
         }
+        //$('.editor-input').hide();
     </script>
 </body>
 </html>
