@@ -161,7 +161,7 @@
     <script th:src="@{/js/FileSaver.js}"></script>
     <script th:src="@{/js/jquery.wordexport.js}"></script>
     <script>
-        //$('#display-div').hide();
+        $('#display-div').hide();
         var doc = new jsPDF();
         var specialElementHandlers = {
             '#editor': function (element, renderer) {
