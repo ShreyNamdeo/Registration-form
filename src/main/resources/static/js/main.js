@@ -98,6 +98,9 @@ $('#input-form').submit(function(e){
     $('#display-editor-table-data').append("<tr style='border-bottom:1px solid black;' id='"+base_elem_id+"-row2'>"+dataInTable+"</tr>");
     e.preventDefault();
     $('#sno').val("");$('#issue').val("");$('#risk').val("");$('#action').val("");$('#cpcs').val("");$('#heading').val("");
+    $('input:checkbox.cp-cs').each(function(){
+        this.checked = false;
+    });
 });
 
 function createSignificanceCheckedInput(id, significanceValue){
