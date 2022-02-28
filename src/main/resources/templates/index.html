@@ -103,7 +103,7 @@
                     <div class="col-3 form-group">
                         <label><small><strong>Significance</strong></small></label>
                         <br>
-                        <input  type="radio" value="High" name="significance" checked> High
+                        <input  type="radio" value="High" name="significance" > High
                         <input  type="radio" value="Medium" name="significance"> Medium
                         <input  type="radio" value="Low" name="significance"> Low
                     </div>
@@ -162,8 +162,8 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
     <script type="text/javascript" src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
     <script th:src="@{/js/FileSaver.js}"></script>
-<script th:src="@{/js/jquery.wordexport.js}"></script>
-<script>
+    <script th:src="@{/js/jquery.wordexport.js}"></script>
+    <script>
         $('#display-div').hide();
         var doc = new jsPDF();
         var specialElementHandlers = {
@@ -229,17 +229,9 @@
 
             //alert(cpCsCheckBoxes);
 
-            var significanceImg = "./img/high.svg";
-            var significanceVal =  $('input[name="significance"]:checked').val();
-            if(significanceVal === 'High'){
-                significanceImg = "./img/high.png";
-            }
-            if(significanceVal === 'Medium'){
-                significanceImg = "./img/medium.png";
-            }
-            if(significanceVal === 'Low'){
-                significanceImg = "./img/low.png";
-            }
+            var significanceVal = $('input[name="significance"]:checked').val();
+            var significanceImg = setSignificanceImgBySignificanceVal(significanceVal);
+
 
             //This is for display div , which is being used for creating doc and Pdf
             var tableHeader = "<tr id='"+base_elem_id+"-row3' style='border-bottom:1px solid black;'>"+
@@ -249,7 +241,7 @@
                               "<td style='border-right:1px solid black;vertical-align: top;'><pre><span id='"+base_elem_id+"-risk-display2'>"+$('#risk').val()+"</span></pre></td>"+
                               "<td style='border-right:1px solid black;vertical-align: top;'><pre><span id='"+base_elem_id+"-action-display2'>"+$('#action').val()+"</span></pre></td>"+
                               "<td style='border-right:1px solid black;vertical-align: top;padding-top:10px;padding-bottom:10px;'><div id='"+base_elem_id+"-cpcs-display2'>"+cpCsTable+"</div></td>"+
-                              "<td style='text-align:center;vertical-align: top;'><img src='"+significanceImg+"' height=40 width=40/></td>"
+                              "<td style='text-align:center;vertical-align: top;'><div id='"+base_elem_id+"-significance-display2'>"+significanceImg+"</div></td>"
             $('#display-table-data').append(tableHeader);
             $('#display-table-data').append("<tr style='border-bottom:1px solid black;' id='"+base_elem_id+"-row4'>"+dataInTable+"</tr>");
 
@@ -261,7 +253,7 @@
                           "<td style='border-right:1px solid black; border-bottom:1px solid black;vertical-align: top;'><pre><span id='"+base_elem_id+"-risk-display1'>"+$('#risk').val()+"</span></pre><textarea id='"+base_elem_id+"-risk' type='text' class='editor-input hidden'>"+$('#risk').val()+"</textarea></td>"+
                           "<td style='border-right:1px solid black; border-bottom:1px solid black;vertical-align: top;'><pre><span id='"+base_elem_id+"-action-display1'>"+$('#action').val()+"</span></pre><textarea id='"+base_elem_id+"-action' type='text' class='editor-input hidden'>"+$('#action').val()+"</textarea></td>"+
                           "<td style='border-right:1px solid black; border-bottom:1px solid black;vertical-align: top;'><div id='"+base_elem_id+"-cpcs-display1'>"+cpCsTable+"</div><div class='hidden' id='"+base_elem_id+"-cpcs'>"+cpCsCheckBoxes+"</div></td>"+
-                          "<td style='text-align:center; border-bottom:1px solid black;'><img src='"+significanceImg+"' height=40 width=40/><div class='hidden' id='"+base_elem_id+"-significance'>"+createSignificanceCheckedInput(base_elem_id,significanceVal)+"</div></td>"
+                          "<td style='text-align:center; border-bottom:1px solid black;'><div id='"+base_elem_id+"-significance-display1'>"+significanceImg+"</div><div class='hidden' id='"+base_elem_id+"-significance'>"+createSignificanceCheckedInput(base_elem_id,significanceVal)+"</div></td>"
             dataInTable = dataInTable + "<td style='border-left:1px solid #000;border-top:1px solid #000;'><button id='"+base_elem_id+"-edit' style='margin:10px;' class='btn btn-sm btn-outline-success' onclick = 'editSection(\""+base_elem_id+"\")'><i class='fa fa-pencil-square-o' aria-hidden='true'></i> Edit</button>"+
                                         "<button id='"+base_elem_id+"-delete' class='btn btn-sm btn-outline-danger'><i class='fa fa-trash-o' aria-hidden='true'></i> Delete</button>"+
                                         "<button id='"+base_elem_id+"-save' class='btn btn-sm btn-outline-info hidden' onclick = 'saveEditedSection(\""+base_elem_id+"\")' ><i class='fa fa-trash-o' aria-hidden='true'></i> Save</button>"+
@@ -274,13 +266,13 @@
 
         function createSignificanceCheckedInput(id, significanceValue){
             if(significanceValue === 'High'){
-                return "<input class='editor-input' type='radio' name='"+"id+' checked> High <input class='editor-input' type='radio' name='"+id+"'> Medium <input class='editor-input' type='radio' name='"+id+"'> Low "
+                return "<input class='editor-input' type='radio' name='"+id+"' checked value='High'> High <input class='editor-input' type='radio' name='"+id+"' value='Medium'> Medium <input class='editor-input' type='radio' name='"+id+"' value='Low'> Low "
             }
             if(significanceValue === 'Medium'){
-                return "<input class='editor-input' type='radio' name='"+id+"'> High <input class='editor-input' type='radio' name='"+id+"' checked> Medium <input class='editor-input' type='radio' name='"+id+"'> Low "
+                return "<input class='editor-input' type='radio' name='"+id+"' value='High'> High <input class='editor-input' type='radio' name='"+id+"' checked value='Medium'> Medium <input class='editor-input' type='radio' name='"+id+"' value='Low'> Low "
             }
             if(significanceValue === 'Low'){
-                return "<input class='editor-input' type='radio' name='"+id+"'> High <input class='editor-input' type='radio' name='"+id+"'> Medium <input class='editor-input' type='radio' name='"+id+"' checked> Low "
+                return "<input class='editor-input' type='radio' name='"+id+"' value='High'> High <input class='editor-input' type='radio' name='"+id+"' value='Medium'> Medium <input class='editor-input' type='radio' name='"+id+"' checked value='Low'> Low "
             }
         }
 
@@ -314,6 +306,7 @@
             $("#"+id+"-cpcs").removeClass("hidden");
 
             //Significance
+            $("#"+id+"-significance-display1").addClass("hidden");
             $("#"+id+"-significance").removeClass("hidden");
         }
 
@@ -359,12 +352,14 @@
             $("#"+id+"-cpcs").addClass("hidden");
 
             //Significance
+            $("#"+id+"-significance-display1").html(setSignificanceImgBySignificanceVal($('input[name='+id+']:checked').val()));
+            $("#"+id+"-significance-display2").html(setSignificanceImgBySignificanceVal($('input[name='+id+']:checked').val()));
+            $("#"+id+"-significance-display1").removeClass("hidden");
             $("#"+id+"-significance").addClass("hidden");
         }
 
         function createCpCsTableFromCheckBoxes(className){
             var cpCsTable = "<table style='1px solid black;border-spacing:0;margin:10px;border-collapse: collapse;padding:0;'>";
-
             $('input:checkbox.'+className).each(function () {
                 //alert($(this)+" is checked "+this.checked+" value is :"+$(this).val())
                 var tickMark = "";
@@ -375,10 +370,20 @@
                 }
                 cpCsTable = cpCsTable + "<tr style='border:1px solid black;line-height:1'><td style='border:1px solid black;'>"+ tickMark + "</td><td style='border:1px solid black;'>" + $(this).val() + "</td></tr>"
             });
-
             cpCsTable = cpCsTable + "</table>";
-
             return cpCsTable;
+        }
+
+        function setSignificanceImgBySignificanceVal(significanceVal){
+            if(significanceVal === 'High'){
+                return "<img src='./img/high.png' height=40 width=80/>";
+            }
+            if(significanceVal === 'Medium'){
+                return "<img src='./img/medium.png' height=40 width=80/>";
+            }
+            if(significanceVal === 'Low'){
+                return "<img src='./img/low.png' height=40 width=80/>";
+            }
         }
     </script>
 </body>
