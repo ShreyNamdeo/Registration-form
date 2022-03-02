@@ -102,6 +102,9 @@ $('#input-form').submit(function(e){
     $('input:checkbox.cp-cs').each(function(){
         this.checked = false;
     });
+    $('html, body').animate({
+            scrollTop: $("#"+base_elem_id+"-row-disp-2").offset().top
+    }, 2000);
 });
 
 function createSignificanceCheckedInput(id, significanceValue){
@@ -339,3 +342,8 @@ function deleteRow(id){
     $("#"+id).remove();
     $("#"+base_elem_id+"row-final"+id.split("-")[3]).remove();
 }
+
+$("a[href='#input-form']").click(function() {
+  $("html, body").animate({ scrollTop: 0 }, "slow");
+  return false;
+});
