@@ -44,8 +44,8 @@ $('#doc-btn').click(function (e) {
 });
 
 $('#input-form').submit(function(e){
-
-    var base_elem_id = new Date().getTime() +"_"+$('#sno').val();
+    var sno_val = $('#sno').val().replace(/[^a-zA-Z0-9]/g, '');
+    var base_elem_id = new Date().getTime() +"_"+sno_val;
     var cpCsTable = "<table style='1px solid black;border-spacing:0;margin:10px;border-collapse: collapse;padding:0;'>";
     var cpCsCheckBoxes = "";
 
@@ -72,7 +72,7 @@ $('#input-form').submit(function(e){
     //This is for display div , which is being used for creating doc and Pdf
     var tableHeader = "<tr id='"+base_elem_id+"-row-final-1' style='border-bottom:1px solid black;'>"+
                       "<td style='border:1px solid black;text-align:center;border-bottom:1px solid black;vertical-align: top;' rowspan='2'><span id='"+base_elem_id+"-sno-final1'>"+$('#sno').val()+"</span></td>"+
-                      "<td style='border:1px solid black; border-top:1px solid black;' colspan='5'><span id='"+base_elem_id+"-heading-final1'>"+$('#heading').val()+"</span></td></tr>";
+                      "<td style='border:1px solid black; border-top:1px solid black;' colspan='5'><span style='font-style: italic;font-weight: bold;' id='"+base_elem_id+"-heading-final1'>"+$('#heading').val()+"</span></td></tr>";
     var dataInTable = "<td style='border:1px solid black;vertical-align: top;'><pre><span id='"+base_elem_id+"-issue-final1'>"+$('#issue').val()+"</span></pre></td>"+
                       "<td style='border:1px solid black;vertical-align: top;'><pre><span id='"+base_elem_id+"-risk-final1'>"+$('#risk').val()+"</span></pre></td>"+
                       "<td style='border:1px solid black;vertical-align: top;'><pre><span id='"+base_elem_id+"-action-final1'>"+$('#action').val()+"</span></pre></td>"+
@@ -84,7 +84,7 @@ $('#input-form').submit(function(e){
     //This is on page display div and editor
     tableHeader = "<tr id='"+base_elem_id+"-row-disp-1' style='border-bottom:1px solid black;' class='"+base_elem_id+"-report-data-row'>"+
                   "<td style='border-right:1px solid black;text-align:center;border-bottom:1px solid black;vertical-align: top;' rowspan='2'><span id='"+base_elem_id+"-sno-display1'>"+$('#sno').val()+"</span><input id='"+base_elem_id+"-sno' type='text' class='editor-input hidden' value='"+$('#sno').val()+"'/></td>"+
-                  "<td style='border-bottom:1px solid black; border-top:1px solid black;' colspan='5'><span id='"+base_elem_id+"-heading-display1'>"+$('#heading').val()+" </span><input type='text' id='"+base_elem_id+"-heading' class='editor-input hidden' value='"+$('#heading').val()+"'/> </td></tr>";
+                  "<td style='border-bottom:1px solid black; border-top:1px solid black;' colspan='5'><span style='font-style: italic;font-weight: bold;' id='"+base_elem_id+"-heading-display1'>"+$('#heading').val()+" </span><input type='text' id='"+base_elem_id+"-heading' class='editor-input hidden' value='"+$('#heading').val()+"'/> </td></tr>";
     dataInTable = "<td style='border-right:1px solid black; border-bottom:1px solid black;vertical-align: top;'><pre><span id='"+base_elem_id+"-issue-display1'>"+$('#issue').val()+"</span></pre><input id='"+base_elem_id+"-issue' type='text' class='editor-input hidden' value='"+$('#issue').val()+"'/></td>"+
                   "<td style='border-right:1px solid black; border-bottom:1px solid black;vertical-align: top;'><pre><span id='"+base_elem_id+"-risk-display1'>"+$('#risk').val()+"</span></pre><textarea id='"+base_elem_id+"-risk' type='text' class='editor-input hidden'>"+$('#risk').val()+"</textarea></td>"+
                   "<td style='border-right:1px solid black; border-bottom:1px solid black;vertical-align: top;'><pre><span id='"+base_elem_id+"-action-display1'>"+$('#action').val()+"</span></pre><textarea id='"+base_elem_id+"-action' type='text' class='editor-input hidden'>"+$('#action').val()+"</textarea></td>"+
