@@ -46,7 +46,7 @@ $('#doc-btn').click(function (e) {
 $('#input-form').submit(function(e){
     var sno_val = $('#sno').val().replace(/[^a-zA-Z0-9]/g, '');
     var base_elem_id = new Date().getTime() +"_"+sno_val;
-    var cpCsTable = "<table style='1px solid black;border-spacing:0;margin:10px;border-collapse: collapse;padding:0;'>";
+    var cpCsTable = "<table style='border:1px solid black;border-spacing:0;margin:10px;border-collapse: collapse;padding:0;font-family:\"Calibri\" !important;font-size:14.5px;margin-bottom:10px;'>";
     var cpCsCheckBoxes = "";
 
     $('input:checkbox.cp-cs').each(function () {
@@ -57,7 +57,7 @@ $('#input-form').submit(function(e){
             tickMark = "&#10003;";
             isChecked = "checked";
         }
-        cpCsTable = cpCsTable + "<tr style='border:1px solid black;line-height:1'><td style='border:1px solid black;'>"+ tickMark + "</td><td style='border:1px solid black;'>" + $(this).val() + "</td></tr>"
+        cpCsTable = cpCsTable + "<tr style='border:1px solid black;line-height:0.70;'><td style='border:1px solid black;'>"+ tickMark + "</td><td style='border:1px solid black;'>" + $(this).val() + "</td></tr>"
         cpCsCheckBoxes = cpCsCheckBoxes + "<input class='editor-input "+base_elem_id+"' type='checkbox' "+isChecked+" value='"+$(this).val()+"'>"+$(this).val();
     });
 
@@ -73,9 +73,9 @@ $('#input-form').submit(function(e){
     var tableHeader = "<tr id='"+base_elem_id+"-row-final-1' style='border-bottom:1px solid black;'>"+
                       "<td style='border:1px solid black;text-align:center;border-bottom:1px solid black;vertical-align: top;' rowspan='2'><span id='"+base_elem_id+"-sno-final1'>"+$('#sno').val()+"</span></td>"+
                       "<td style='border:1px solid black; border-top:1px solid black;' colspan='5'><span style='font-style: italic;font-weight: bold;' id='"+base_elem_id+"-heading-final1'>"+$('#heading').val()+"</span></td></tr>";
-    var dataInTable = "<td style='border:1px solid black;vertical-align: top;'><pre><span id='"+base_elem_id+"-issue-final1'>"+$('#issue').val()+"</span></pre></td>"+
-                      "<td style='border:1px solid black;vertical-align: top;'><pre><span id='"+base_elem_id+"-risk-final1'>"+$('#risk').val()+"</span></pre></td>"+
-                      "<td style='border:1px solid black;vertical-align: top;'><pre><span id='"+base_elem_id+"-action-final1'>"+$('#action').val()+"</span></pre></td>"+
+    var dataInTable = "<td style='border:1px solid black;vertical-align: top;white-space: pre;'><span id='"+base_elem_id+"-issue-final1'>"+$('#issue').val()+"</span></td>"+
+                      "<td style='border:1px solid black;vertical-align: top;white-space: pre;'><span id='"+base_elem_id+"-risk-final1'>"+$('#risk').val()+"</span></td>"+
+                      "<td style='border:1px solid black;vertical-align: top;white-space: pre;'><span id='"+base_elem_id+"-action-final1'>"+$('#action').val()+"</span></td>"+
                       "<td style='border:1px solid black;vertical-align: top;padding-top:10px;padding-bottom:10px;'><div id='"+base_elem_id+"-cpcs-final1'>"+cpCsTable+"</div></td>"+
                       "<td style='border:1px solid black;text-align:center;vertical-align: top;'><div id='"+base_elem_id+"-significance-final1'>"+significanceImg+"</div></td>"
     $('#display-table-data').append(tableHeader);
@@ -85,9 +85,9 @@ $('#input-form').submit(function(e){
     tableHeader = "<tr id='"+base_elem_id+"-row-disp-1' style='border-bottom:1px solid black;' class='"+base_elem_id+"-report-data-row'>"+
                   "<td style='border-right:1px solid black;text-align:center;border-bottom:1px solid black;vertical-align: top;' rowspan='2'><span id='"+base_elem_id+"-sno-display1'>"+$('#sno').val()+"</span><input id='"+base_elem_id+"-sno' type='text' class='editor-input hidden' value='"+$('#sno').val()+"'/></td>"+
                   "<td style='border-bottom:1px solid black; border-top:1px solid black;' colspan='5'><span style='font-style: italic;font-weight: bold;' id='"+base_elem_id+"-heading-display1'>"+$('#heading').val()+" </span><input type='text' id='"+base_elem_id+"-heading' class='editor-input hidden' value='"+$('#heading').val()+"'/> </td></tr>";
-    dataInTable = "<td style='border-right:1px solid black; border-bottom:1px solid black;vertical-align: top;'><pre><span id='"+base_elem_id+"-issue-display1'>"+$('#issue').val()+"</span></pre><input id='"+base_elem_id+"-issue' type='text' class='editor-input hidden' value='"+$('#issue').val()+"'/></td>"+
-                  "<td style='border-right:1px solid black; border-bottom:1px solid black;vertical-align: top;'><pre><span id='"+base_elem_id+"-risk-display1'>"+$('#risk').val()+"</span></pre><textarea id='"+base_elem_id+"-risk' type='text' class='editor-input hidden'>"+$('#risk').val()+"</textarea></td>"+
-                  "<td style='border-right:1px solid black; border-bottom:1px solid black;vertical-align: top;'><pre><span id='"+base_elem_id+"-action-display1'>"+$('#action').val()+"</span></pre><textarea id='"+base_elem_id+"-action' type='text' class='editor-input hidden'>"+$('#action').val()+"</textarea></td>"+
+    dataInTable = "<td style='border-right:1px solid black; border-bottom:1px solid black;vertical-align: top;white-space: pre;'><span id='"+base_elem_id+"-issue-display1'>"+$('#issue').val()+"</span><textarea id='"+base_elem_id+"-issue' type='text' class='editor-input hidden' >"+$('#issue').val()+"</textarea></td>"+
+                  "<td style='border-right:1px solid black; border-bottom:1px solid black;vertical-align: top;white-space: pre;'><span id='"+base_elem_id+"-risk-display1'>"+$('#risk').val()+"</span><textarea id='"+base_elem_id+"-risk' type='text' class='editor-input hidden'>"+$('#risk').val()+"</textarea></td>"+
+                  "<td style='border-right:1px solid black; border-bottom:1px solid black;vertical-align: top;white-space: pre;'><span id='"+base_elem_id+"-action-display1'>"+$('#action').val()+"</span><textarea id='"+base_elem_id+"-action' type='text' class='editor-input hidden'>"+$('#action').val()+"</textarea></td>"+
                   "<td style='border-right:1px solid black; border-bottom:1px solid black;vertical-align: top;'><div id='"+base_elem_id+"-cpcs-display1'>"+cpCsTable+"</div><div class='hidden' id='"+base_elem_id+"-cpcs'>"+cpCsCheckBoxes+"</div></td>"+
                   "<td style='text-align:center; border-bottom:1px solid black;'><div id='"+base_elem_id+"-significance-display1'>"+significanceImg+"</div><div class='hidden' id='"+base_elem_id+"-significance'>"+createSignificanceCheckedInput(base_elem_id,significanceVal)+"</div></td>"
     dataInTable = dataInTable + "<td style='border-left:1px solid #000;border-top:1px solid #000;'><button id='"+base_elem_id+"-edit' style='margin:10px;' class='btn btn-sm btn-outline-success' onclick = 'editSection(\""+base_elem_id+"\")'><i class='fa fa-pencil-square-o' aria-hidden='true'></i> Edit</button>"+
@@ -246,18 +246,18 @@ function addAnotherDataRow(rowId){
     });
 
     //Add Another Row to editor table
-    var dataInTable = "<td style='border:1px solid black;vertical-align: top;'><pre><span id='"+id+"-issue-final"+incrementedRowValue+"'></span></pre></td>"+
-                "<td style='border:1px solid black;vertical-align: top;'><pre><span id='"+id+"-risk-final"+incrementedRowValue+"'></span></pre></td>"+
-                "<td style='border:1px solid black;vertical-align: top;'><pre><span id='"+id+"-action-final"+incrementedRowValue+"'></span></pre></td>"+
+    var dataInTable = "<td style='border:1px solid black;vertical-align: top;white-space: pre;'><span id='"+id+"-issue-final"+incrementedRowValue+"'></span></td>"+
+                "<td style='border:1px solid black;vertical-align: top;white-space: pre;'><span id='"+id+"-risk-final"+incrementedRowValue+"'></span></td>"+
+                "<td style='border:1px solid black;vertical-align: top;white-space: pre;'><span id='"+id+"-action-final"+incrementedRowValue+"'></span></td>"+
                 "<td style='border:1px solid black;vertical-align: top;padding-top:10px;padding-bottom:10px;'><div id='"+id+"-cpcs-final"+incrementedRowValue+"'></div></td>"+
                 "<td style='border:1px solid black; text-align:center;vertical-align: top;'><div id='"+id+"-significance-final"+incrementedRowValue+"'></div></td>"
     //$('#display-table-data').append("<tr style='border-bottom:1px solid black;' id='"+id+"-row-final-"+incrementedRowValue+"'>"+dataInTable+"</tr>");
     $("<tr style='border-bottom:1px solid black;' id='"+id+"-row-final-"+incrementedRowValue+"'>"+dataInTable+"</tr>").insertAfter("#"+id+"-row-final-"+rowId.split("-")[3]);
 
     //Add Another Row to display table
-    dataInTable = "<td style='border-right:1px solid black; border-bottom:1px solid black;vertical-align: top;'><pre><span id='"+id+"-issue-display"+incrementedRowValue+"'></span></pre><textarea placeholder='Issue' id='"+id+"-issue-disp"+incrementedRowValue+"' type='text' class='editor-input'></textarea></td>"+
-                  "<td style='border-right:1px solid black; border-bottom:1px solid black;vertical-align: top;'><pre><span id='"+id+"-risk-display"+incrementedRowValue+"'></span></pre><textarea placeholder='Risk' id='"+id+"-risk-disp"+incrementedRowValue+"' type='text' class='editor-input'></textarea></td>"+
-                  "<td style='border-right:1px solid black; border-bottom:1px solid black;vertical-align: top;'><pre><span id='"+id+"-action-display"+incrementedRowValue+"'></span></pre><textarea placeholder='Action' id='"+id+"-action-disp"+incrementedRowValue+"' type='text' class='editor-input'></textarea></td>"+
+    dataInTable = "<td style='border-right:1px solid black; border-bottom:1px solid black;vertical-align: top;white-space: pre;'><span id='"+id+"-issue-display"+incrementedRowValue+"'></span><textarea placeholder='Issue' id='"+id+"-issue-disp"+incrementedRowValue+"' type='text' class='editor-input'></textarea></td>"+
+                  "<td style='border-right:1px solid black; border-bottom:1px solid black;vertical-align: top;white-space: pre;'><span id='"+id+"-risk-display"+incrementedRowValue+"'></span><textarea placeholder='Risk' id='"+id+"-risk-disp"+incrementedRowValue+"' type='text' class='editor-input'></textarea></td>"+
+                  "<td style='border-right:1px solid black; border-bottom:1px solid black;vertical-align: top;white-space: pre;'><span id='"+id+"-action-display"+incrementedRowValue+"'></span><textarea placeholder='Action' id='"+id+"-action-disp"+incrementedRowValue+"' type='text' class='editor-input'></textarea></td>"+
                   "<td style='border-right:1px solid black; border-bottom:1px solid black;vertical-align: top;'><div id='"+id+"-cpcs-display"+incrementedRowValue+"'></div><div class='' id='"+id+"-cpcs-disp"+incrementedRowValue+"'>"+cpCsCheckBoxes+"</div></td>"+
                   "<td style='text-align:center; border-bottom:1px solid black;'><div id='"+id+"-significance-display"+incrementedRowValue+"'></div><div class='' id='"+id+"-significance-disp"+incrementedRowValue+"'>"+significanceRadio+"</div></td>"
     dataInTable = dataInTable + "<td style='border-left:1px solid #000;border-top:1px solid #000;'><button id='"+id+"-edit-display"+incrementedRowValue+"' style='margin:10px;' class='btn btn-sm btn-outline-success hidden' onclick = 'editRow(\""+id+"-row-disp-"+incrementedRowValue+"\")'><i class='fa fa-pencil-square-o' aria-hidden='true'></i> Edit</button>"+
