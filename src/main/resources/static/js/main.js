@@ -264,7 +264,7 @@ function setSignificanceImgBySignificanceVal(significanceVal){
 }
 
 function addAnotherDataRow(rowId){
-    alert(rowId);
+    //alert(rowId);
     var id = rowId.split("-")[0];
     var numberOfRows = parseInt($("#"+id+"-sno-display1").parent().attr("rowspan"));
     $("#"+id+"-sno-display1").parent().attr("rowspan",numberOfRows+1);
@@ -305,7 +305,7 @@ function addAnotherDataRow(rowId){
 }
 
 function editRow(rowId){
-    alert();
+    //alert();
     var id = rowId.split("-")[0];
     var incrementedRowValue = parseInt(rowId.split("-")[3]);
 
