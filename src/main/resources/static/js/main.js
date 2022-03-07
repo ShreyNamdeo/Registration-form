@@ -153,6 +153,7 @@ function createSignificanceCheckedInput(id, significanceValue){
 }
 
 function editSection(id){
+    alert(id);
     $("#"+id+"-edit").addClass("hidden");
     $("#"+id+"-delete").addClass("hidden");
     $("#"+id+"-save").removeClass("hidden");
@@ -263,6 +264,7 @@ function setSignificanceImgBySignificanceVal(significanceVal){
 }
 
 function addAnotherDataRow(rowId){
+    alert(rowId);
     var id = rowId.split("-")[0];
     var numberOfRows = parseInt($("#"+id+"-sno-display1").parent().attr("rowspan"));
     $("#"+id+"-sno-display1").parent().attr("rowspan",numberOfRows+1);
@@ -278,20 +280,21 @@ function addAnotherDataRow(rowId){
         significanceRadio = significanceRadio + "<input class='editor-input "+id+"-radio-"+incrementedRowValue+"' name='"+id+"-significance-"+incrementedRowValue+"' type='radio' value='"+$(this).val()+"'/>"+$(this).val()+"<br>";
     });
 
-    //Add Another Row to editor table
-    var dataInTable = "<td style='border:1px solid black;vertical-align: top;white-space: pre;'><span id='"+id+"-issue-final"+incrementedRowValue+"'></span></td>"+
-                "<td style='border:1px solid black;vertical-align: top;white-space: pre;'><span id='"+id+"-risk-final"+incrementedRowValue+"'></span></td>"+
-                "<td style='border:1px solid black;vertical-align: top;white-space: pre;'><span id='"+id+"-action-final"+incrementedRowValue+"'></span></td>"+
-                "<td style='border:1px solid black;vertical-align: top;padding-top:10px;padding-bottom:10px;'><div id='"+id+"-cpcs-final"+incrementedRowValue+"'></div></td>"+
-                "<td style='border:1px solid black; text-align:center;vertical-align: top;'><div id='"+id+"-significance-final"+incrementedRowValue+"'></div></td>"
+    //Add Another Row to final table
+    var dataInTable = "<td style='border:1px solid black;vertical-align: top;white-space: pre;padding: 0 0 0 5px;'><span id='"+id+"-issue-final"+incrementedRowValue+"'></span></td>"+
+                "<td style='border:1px solid black;vertical-align: top;white-space: pre;padding: 0 0 0 5px;'><span id='"+id+"-risk-final"+incrementedRowValue+"'></span></td>"+
+                "<td style='border:1px solid black;vertical-align: top;white-space: pre;padding: 0 0 0 5px;'><span id='"+id+"-action-final"+incrementedRowValue+"'></span></td>"+
+                "<td style='border:1px solid black;vertical-align: top;padding-top:10px;padding-bottom:10px;padding: 0 0 0 5px;'><div id='"+id+"-cpcs-final"+incrementedRowValue+"'></div></td>"+
+                "<td style='border:1px solid black; text-align:center;vertical-align: top;padding: 0 0 0 5px;'><div id='"+id+"-significance-final"+incrementedRowValue+"'></div></td>"
     //$('#display-table-data').append("<tr style='border-bottom:1px solid black;' id='"+id+"-row-final-"+incrementedRowValue+"'>"+dataInTable+"</tr>");
     $("<tr style='border-bottom:1px solid black;' id='"+id+"-row-final-"+incrementedRowValue+"'>"+dataInTable+"</tr>").insertAfter("#"+id+"-row-final-"+rowId.split("-")[3]);
 
-    //Add Another Row to display table
-                  "<td style='border-right:1px solid black; border-bottom:1px solid black;vertical-align: top;white-space: pre;'><span id='"+id+"-risk-display"+incrementedRowValue+"'></span><textarea placeholder='Risk' id='"+id+"-risk-disp"+incrementedRowValue+"' type='text' class='editor-input'></textarea></td>"+
-                  "<td style='border-right:1px solid black; border-bottom:1px solid black;vertical-align: top;white-space: pre;'><span id='"+id+"-action-display"+incrementedRowValue+"'></span><textarea placeholder='Action' id='"+id+"-action-disp"+incrementedRowValue+"' type='text' class='editor-input'></textarea></td>"+
-                  "<td style='border-right:1px solid black; border-bottom:1px solid black;vertical-align: top;'><div id='"+id+"-cpcs-display"+incrementedRowValue+"'></div><div class='' id='"+id+"-cpcs-disp"+incrementedRowValue+"'>"+cpCsCheckBoxes+"</div></td>"+
-                  "<td style='text-align:center; border-bottom:1px solid black;'><div id='"+id+"-significance-display"+incrementedRowValue+"'></div><div class='' id='"+id+"-significance-disp"+incrementedRowValue+"'>"+significanceRadio+"</div></td>"
+    //Add Another Row to editor table
+    dataInTable = "<td style='border-right:1px solid black; border-bottom:1px solid black;vertical-align: top;white-space: pre;padding: 0 0 0 5px;'><span id='"+id+"-issue-display"+incrementedRowValue+"'></span><textarea style='width:100%;' rows=5 placeholder='Issue' id='"+id+"-issue-disp"+incrementedRowValue+"' type='text' class='editor-input'></textarea></td>"+
+                  "<td style='border-right:1px solid black; border-bottom:1px solid black;vertical-align: top;white-space: pre;padding: 0 0 0 5px;'><span id='"+id+"-risk-display"+incrementedRowValue+"'></span><textarea style='width:100%;' rows=5 placeholder='Risk' id='"+id+"-risk-disp"+incrementedRowValue+"' type='text' class='editor-input'></textarea></td>"+
+                  "<td style='border-right:1px solid black; border-bottom:1px solid black;vertical-align: top;white-space: pre;padding: 0 0 0 5px;'><span id='"+id+"-action-display"+incrementedRowValue+"'></span><textarea style='width:100%;' rows=5 placeholder='Action' id='"+id+"-action-disp"+incrementedRowValue+"' type='text' class='editor-input'></textarea></td>"+
+                  "<td style='border-right:1px solid black; border-bottom:1px solid black;vertical-align: top;padding: 0 0 0 5px;'><div id='"+id+"-cpcs-display"+incrementedRowValue+"'></div><div class='' id='"+id+"-cpcs-disp"+incrementedRowValue+"'>"+cpCsCheckBoxes+"</div></td>"+
+                  "<td style='text-align:center; border-bottom:1px solid black;padding: 0 0 0 5px;'><div id='"+id+"-significance-display"+incrementedRowValue+"'></div><div class='' id='"+id+"-significance-disp"+incrementedRowValue+"'>"+significanceRadio+"</div></td>"
     dataInTable = dataInTable + "<td style='border-left:1px solid #000;border-top:1px solid #000;'><button id='"+id+"-edit-display"+incrementedRowValue+"' style='margin:10px;' class='btn btn-sm btn-outline-success hidden' onclick = 'editRow(\""+id+"-row-disp-"+incrementedRowValue+"\")'><i class='fa fa-pencil-square-o' aria-hidden='true'></i> Edit</button>"+
                                 "<button id='"+id+"-delete-display"+incrementedRowValue+"' style='margin:10px;' class='btn btn-sm btn-outline-danger' onclick = 'deleteRow(\""+id+"-row-disp-"+incrementedRowValue+"\")'><i class='fa fa-trash-o' aria-hidden='true'></i> Delete</button>"+
                                 "<button id='"+id+"-save-display"+incrementedRowValue+"' style='margin:10px;' class='btn btn-sm btn-outline-info' onclick = 'saveEditedRow(\""+id+"-row-disp-"+incrementedRowValue+"\")' ><i class='fa fa-trash-o' aria-hidden='true'></i> Save</button>"+
@@ -302,6 +305,7 @@ function addAnotherDataRow(rowId){
 }
 
 function editRow(rowId){
+    alert();
     var id = rowId.split("-")[0];
     var incrementedRowValue = parseInt(rowId.split("-")[3]);
 
@@ -382,7 +386,7 @@ $("a[href='#input-form']").click(function() {
 });
 
 function checkDataRowCountAndEnableFeature(e){
-    alert($('.editor-row').length);
+    //alert($('.editor-row').length);
     if($('.editor-row').length < 1){
         $("#display-editor-div").addClass("hidden");
         $("#no-data").removeClass("hidden");
@@ -394,7 +398,6 @@ function checkDataRowCountAndEnableFeature(e){
         $("#display-editor-div").removeClass("hidden");
         $("#no-data").addClass("hidden");
     }
-    e.preventDefault();
 }
 
 // 1733.08 size of div which stores perfectly on a single pdf page
