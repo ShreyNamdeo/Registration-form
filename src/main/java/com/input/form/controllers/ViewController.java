@@ -9,7 +9,7 @@ public class ViewController {
 
     @RequestMapping(value = "")
     public String index(Model model) throws Exception{
-        model.addAttribute("title", "Input Form");
+        model.addAttribute("title", "SR LEGAL");
         return "index";
     }
 }

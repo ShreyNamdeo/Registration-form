@@ -69,9 +69,15 @@ if (typeof jQuery !== "undefined" && typeof saveAs !== "undefined") {
 
             // Create a Blob with the file contents
             var blob = new Blob([fileContent], {
-                type: "application/msword;charset=utf-8"
+                type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document;charset=utf-8;"
             });
+
+            /*var pdfBlob = new Blob([fileContent], {
+                type: "application/pdf;"
+            });*/
+            //alert(fileContent);
             saveAs(blob, fileName + ".doc");
+            //saveAs(pdfBlob, fileName + ".pdf");
         };
     })(jQuery);
 } else {

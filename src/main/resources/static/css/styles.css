@@ -1,0 +1,11 @@
+thead  {
+    background:blue;
+    text-align:center;
+}
+
+@media print {
+	thead  {
+        background:blue;
+        text-align:center;
+	}
+}
